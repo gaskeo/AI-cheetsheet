@@ -1,0 +1,149 @@
+# Модель
+`tensorflow.keras.models`
+
+```
+model.compile(optimizer, loss, metrics)         скомпилировать сеть
+model.fit(x_train, y_train, epochs)             обучить сеть
+model.predict(one_elem)                         предсказать по 1 элементу
+                                                размерность (1, (размерность самого элемента))
+model.summary()                                 Информация о модели
+```
+### Sequential
+Простейшая полносвязная сеть. 
+```
+Sequential(
+    layers: iterable    |   слои нейронной сети
+)
+```
+---
+# Слои
+`tensorflow.keras.layers`
+
+## `Dense` 
+Самый простой полносвязный слой (каждый предыдущий нейрон связан с каждым следующим)
+```
+Dense(
+    units: int          |   размерность выходного слоя
+    activation: str     |   функция активации
+    use_bias: bool      |   использование bias (t)
+)
+```
+## `BatchNormalization`
+Преобразует входные данные в числа от `-1` до `1`
+
+## `Flatten`
+Выравнивает входные данные до одной размерности: `(64, 10) -> (640, )`
+
+---
+
+# Функции активации
+
+## `Sigmoid`
+Возвращает значения от `0` до `1`
+* обычно применяется на выходном слое
+* задача бинарной классификации (принадлежит/не принадлежит)
+
+## `Relu`
+Значения меньше нуля приравниваются к нулю
+* обычно в скрытых слоях
+* используется с картинками (`RGB`)
+
+## `Tanh` - гиперболический тангенс
+Более плавный по сравнению с `Sigmoid`
+
+Возвращает значения от `-1` до `1`
+* лучше работает со значениями, близкими к нулю
+* можно использовать с картинками (`LAB` формат)
+
+## `softmax`
+Распределяет вероятность между классами
+* обычно на последнем слое 
+* в задачах классификации
+
+---
+# Функции ошибок
+
+## `mae` - mean absolute error
+Средняя абсолютная ошибка - среднее отклонение точки от предсказанного значения
+* для регрессии
+
+## `mse` - mean square error
+Среднеквадратичная ошибка - отклонение в квадрате
+* для регрессии
+
+## `binary_crossentropy`
+* для бинарной классификации для `[0, 1]`
+
+## `categorical_crossentropy`
+* для классификации, когда в выходном слое массив с индексом правильного элемента  
+
+## `categorical_accuracy`
+* для классификации
+
+## `sparse_categorical_crossentropy`
+* для классификации, когда в выходном слое только один нейрон с `id` класса
+
+---
+
+# Оптимизаторы `t`
+## `adam`
+Один из лучших оптимизаторов
+```
+optimizer = Adam(
+    learning_rate=float[default: 10 ** -5]   |   шаг обучения
+)
+```
+---
+# callbacks
+Коллбэки нужны для отслеживания состояния модели на эпохе
+
+```
+class MyCallBack(tf.keras.callbacks.Callback): 
+    def on_epoch_end(self, epoch, logs): 
+        if logs['loss'] < 90: 
+            print('конец') 
+            self.model.stop_training = True
+
+
+model = ...
+...
+model.fit(..., callbacks=[MyCallBack()])
+```
+---
+
+# Прочее 
+## `train_test_split`
+Функция для деления выборки на тренировочную и тестовую
+```
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(
+    x: array,               |   масссив с данными
+    y: array,               |   массив с ответами
+    test_size: float,       |   процент в тестовой выборке [0, 1]
+    train_size: float,      |   в тренировочной
+    random_state: int,      |   random seed
+    shuffle: bool           |   нужно ли перемешивать
+)
+```
+
+## `plot_model`
+Функция для представления схемы нейронной сети
+```
+from tensorflow.keras.utils import plot_model
+plot_model(model, show_shapes=True)
+```
+
+## `to_categorical` 
+Функция для представления значений по категориям 
+```
+from tensorflow.keras.utils import co_categorical
+a = array(1, 5, 2, 5, 2)
+to_categorical(a) -> 
+-> array(
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+    [0, 1, 0],
+    [0, 0, 1]
+)
+```
