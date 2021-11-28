@@ -30,6 +30,41 @@ Sequential(
 )
 ```
 
+## `Model` (functional api)
+Другой способ задания модели
+```python
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Dense, concatenate, Flatten
+
+input1 = Input((20, 10))
+input2 = Input((100, 15))
+
+x1 = Flatten()(input1)
+x1 = Dense(100)(x1)
+x1 = Dense(10)(x1)
+
+x2 = Flatten()(input2)
+x2 = Dense(102)(x2)
+
+x = concatenate([x1, x2])
+x = Dense(15)(x)
+
+model = Model((input1, input2), x)
+#   Input((20, 10))      Input((100, 15))
+#         |                     |
+#      Flatten                  |               
+#         |                  Flatten  
+#     Dense(100)                |   
+#         |                     |
+#     Dense(10)              Dense(102)
+#          \                   /
+#           +-----------------+   
+#                    |
+#            concatenate((10 + 102))
+#                    |
+#                 Dense(15)
+```
+
 # Слои
 `tensorflow.keras.layers`
 
@@ -60,6 +95,7 @@ Dropout(n=float)  #  n - какой процент нейронов надо о�
 ```
 
 ## `Conv2D`
+Конволюционный слой
 ```python
 from tensorflow.keras.layers import Conv2D
 import numpy as np
@@ -116,6 +152,53 @@ Embedding(
 
 ## `SpecialDropout`
 Отключает столбик весов, по параметрам как `Dropout`
+
+## `SimpleRNN`
+Слой с рекуррентной нейронной сетью `t` 
+```python
+from tensorflow.keras.layers import SimpleRNN
+
+SimpleRNN(
+    units=int,                  #  количество внутренних нейронных сетей (количество выходов)
+    dropout=float,              #  для входов
+    recurrent_dropout=float,    #  для повторяющегося состояния
+    activation=str,   
+)
+```
+
+## `LSTM` `t` 
+```python
+from tensorflow.keras.layers import LSTM
+
+LSTM(
+    units=int,              #  как 'SimpleRNN'
+    return_sequences=bool   #  возвращать промежуточные значения -> 
+    # -> можно делать каскады LSTM слоев Sequential([
+    #                                                   LSTM(), 
+    #                                                   LSTM()
+    #                                                ])
+)  
+```
+
+## `Conv1D`
+```python
+from tensorflow.keras.layers import Conv1D
+
+Conv1D(
+    filters=int,        #  количество фильтров в слое
+    kernel_size=int,    #  размер окна
+    activation=str, 
+)
+```
+
+## `Reshape`
+Слой, подгоняющий размерность данных
+
+```python
+from tensorflow.keras.layers import Reshape
+
+Reshape((20, 10))  
+```
 
 # Функции активации
 
@@ -320,4 +403,17 @@ def create_samples(text_indexes: List[List[int], ...], cut_len: int, step: int) 
 ```python
 x_train, y_train = create_samples(train_text_indexes, 1000, 100)
 x_train_binary = tokenizer.sequences_to_matrix(x_train.tolist())
+```
+
+## `StandardScaler`
+нормализатор
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+x_train = ...
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train_skaled = scaler.transform(x_train)
+
 ```
