@@ -331,6 +331,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 tokenizer = Tokenizer(
     num_words=int,          #   максимальное количество слов для токенизации
     filters=str,            #   символы, которые не нужны
+                            #   '!"#$%&()*+,-–—./…:;<=>?@[\\]^_`{|}~«»\t\n\xa0\ufeff'
     lower=bool,             #   преобразовать в нижний регистр
     split=str,              #   разделитель слов
     oov_token=str,          #   как помечать слова, выходящие за num_words ('unknown')
