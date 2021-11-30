@@ -29,6 +29,18 @@ data2[                # то есть из первой размерности �
 ]                     # под индексами 0 и 2
 ```
 
+## Базовые операции
+```python
+import numpy as np
+
+a = np.array([1, 2])
+b = np.array([3, 1]) 
+a + b  # -> np.array([1 + 3, 2 + 1])  -> np.array([4, 3])
+# операции происходят поэлементно 
+
+a * 1.5 # -> [1 * 1.5, 2 * 1.5] -> [1.5, 3.]
+```
+
 ## Сортировка 
 ```python
 import numpy as np
@@ -61,6 +73,30 @@ import numpy as np
 data = np.array([1, 2, 3, 4])
 data.reshape(2, 2)  # -> [[1, 2], [1, 2]]
 data.reshape(data.shape, 1)     # -> [[1], [2], [3], [4]] 
+```
+
+## `sum`
+Сумма элементов
+```python
+import numpy as np
+
+a = np.array([1, 2, 3])  
+a.sum()     # -> 6
+
+b = np.array([[1, 2], [3, 4]])
+b.sum()         # -> 10 [1 + 2 + 3 + 4]
+b.sum(axis=0)   # -> np.array([4, 6])   [1 + 3, 2 + 4]  
+b.sum(axis=1)   # -> np.array([3, 7])   [1 + 2, 3 + 4]
+```
+
+## `max` `min`
+```python
+import numpy as np
+
+a = np.array([[1, 2], [3, 4]])
+a.max()  # -> 4 
+a.max(axis=1)   # -> [2, 4]
+a.min(axis=0)   # -> [1, 2] 
 ```
 
 ## `flatten`
