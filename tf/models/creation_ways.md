@@ -1,7 +1,14 @@
 # Способы создания модели
 
-## `Sequential`
-Для создания обычной полносвязной сети
+---
+### `t`
+* [Sequential](../../terms.md#sequential)
+* [Перцептрон](../../terms.md#perceptron)
+
+---
+
+## `Sequential` `t`
+Для создания обычной полносвязной сети (Перцептрона `t`)
 
 ```python
 from tensorflow.keras.models import Sequential
