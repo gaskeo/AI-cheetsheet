@@ -47,7 +47,7 @@ import numpy as np
 
 data = np.array([2, 45, 5, 6, 244])
 np.sort(data)   # -> отсортированный массив 
-np.argsort(data, axis=int)  # -> отсортированный массив в axis'ной размерности
+np.argsort(data, axis=0)  # -> отсортированный массив в axis'ной размерности
 ```
 
 ## `concatenate`
@@ -57,7 +57,7 @@ import numpy as np
 
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
-np.concatenate((a, b), axis=int)  # axis - на какой глубине объединять
+np.concatenate((a, b), axis=0)  # axis - на какой глубине объединять
 ```
 
 ## `ndim` `size` `shape`
