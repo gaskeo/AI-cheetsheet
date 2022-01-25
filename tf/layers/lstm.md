@@ -8,9 +8,9 @@
 ---
 
 ```python
-from tensorflow.keras.layers import SimpleRNN
+from tensorflow.keras.layers import LSTM
 
-SimpleRNN(
+LSTM(
     units=int,                  #  количество внутренних нейронных сетей (количество выходов)
     dropout=float,              #  для входов
     recurrent_dropout=float,    #  для повторяющегося состояния
