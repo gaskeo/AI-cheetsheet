@@ -1,0 +1,28 @@
+Линейная регрессия
+f(x)=
+\begin{pmatrix}
+1 & x_{1_{1}} & x_{1_{2}} & \ldots & x_{1_{n}} \\
+1 & x_{2_{1}} & x_{2_{2}} & \ldots & x_{2_{n}} \\
+1 & x_{3_{1}} & x_{3_{2}} & \ldots & x_{3_{n}} \\
+1 & \vdots & \vdots & \vdots & \vdots \\
+1 & x_{m_{1}} & x_{m_{2}} & \ldots & x_{m_{n}} \\
+\end{pmatrix}
+\begin{pmatrix}
+w_{0}\\
+w_{1}\\
+w_{2}\\
+\vdots\\
+w_{n}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+\vdots\\
+y_{m}
+\end{pmatrix}
+
+Линейная функция
+f(x)=
+w_{0} + \left \langle w, x \right \rangle
